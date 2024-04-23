@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import heapq
 import os
+import time
 
 # Clase para crear los nodos del árbol de Huffman
 class NodoHuffman:
@@ -123,40 +124,71 @@ def descomprimir_archivo(archivo_comprimido, arbol_huffman):
     return nombre_archivo_descomprimido 
 
 
-# Función para manejar la selección de archivo
+# Funcion para seleccionar el archivo
 def examinar():
     archivo = filedialog.askopenfilename(filetypes=[("Solo archivos TXT", "*txt")])
     if archivo:
         messagebox.showinfo("Archivo seleccionado", f"Archivo seleccionado")
         # Cuenta los caracteres
+        inicio = time.time() # Comienza a medir el tiempo
         no_caracteres = contar_caracteres(archivo)
+        fin = time.time() # Termina de medir el tiempo
+        tiempo_contar_caracteres = fin - inicio # Calcula el tiempo transcurrido
+
         # Crea el árbol de Huffman con los caracteres repetidos contados
+        inicio = time.time() # Comienza a medir el tiempo
         arbol_huffman = crear_arbol_huffman(no_caracteres)
+        fin = time.time() # Termina de medir el tiempo
+        tiempo_crear_arbol = fin - inicio # Calcula el tiempo transcurrido
+
         # Genera tabla de códigos Huffman
+        inicio = time.time() # Comienza a medir el tiempo
         tabla_codigos = crear_tabla_codigos(arbol_huffman)
+        fin = time.time() # Termina de medir el tiempo
+        tiempo_generar_tabla = fin - inicio # Calcula el tiempo transcurrido
+
         # Guarda la información necesaria para compresión/descompresión
         ventana_principal.archivo = archivo
         ventana_principal.arbol_huffman = arbol_huffman
         ventana_principal.tabla_codigos = tabla_codigos 
 
-# Función para manejar la compresión del archivo
+        tiempo_total_examinar = tiempo_contar_caracteres + tiempo_crear_arbol + tiempo_generar_tabla
+        print(f"Tiempo total para procesar el archivo: {tiempo_total_examinar} segundos")
+
+        return tiempo_total_examinar
+
+# Funcion para comprimir el archivo
 def comprimir():
     archivo = ventana_principal.archivo
     tabla_codigos = ventana_principal.tabla_codigos
     if archivo and tabla_codigos:
+        inicio = time.time() # Comienza a medir el tiempo
         nombre_archivo_comprimido = comprimir_archivo(archivo, tabla_codigos)
+        fin = time.time() # Termina de medir el tiempo
+        tiempo_comprimir = fin - inicio # Calcula el tiempo transcurrido
+
         messagebox.showinfo("Compresión completada", f"ARCHIVO COMPRIMIDO")
 
+        print(f"Tiempo total para comprimir el archivo: {tiempo_comprimir} segundos")
 
-# Función para manejar la descompresión del archivo
+        return tiempo_comprimir
+
+# Funcion para descomprimir el archivo
 def descomprimir():
     archivo_comprimido = filedialog.askopenfilename(filetypes=[("Archivos BIN", "*.bin")])
     if archivo_comprimido:
         # Se carga el árbol de Huffman previamente creado
         arbol_huffman = ventana_principal.arbol_huffman
-        # Descomprimir el archivo
+        inicio = time.time() # Comienza a medir el tiempo
         archivo_descomprimido = descomprimir_archivo(archivo_comprimido, arbol_huffman)
+        fin = time.time() # Termina de medir el tiempo
+        tiempo_descomprimir = fin - inicio # Calcula el tiempo transcurrido
+
         messagebox.showinfo("Descompresión completada", f"ARCHIVO DESCOMPRIMIDO")
+
+        print(f"Tiempo total para descomprimir el archivo: {tiempo_descomprimir} segundos")
+
+        return tiempo_descomprimir
 
 # Crear la ventan principal GUI
 class VentanaPrincipal(tk.Tk):
