@@ -1,5 +1,6 @@
 import heapq
 import os
+import time
 
 # Clase para crear los nodos del arbol de huffman
 class NodoHuffman:
@@ -111,6 +112,7 @@ def descomprimir_archivo(archivo_comprimido, arbol_huffman):
 
     return nombre_archivo_descomprimido
 
+inicio = time.time() # Comienza a medir el tiempo
 
 # Archivo de entrada
 archivo = "D:/Documentos/8vo/Analisis de Algoritmos/Actividades/practica7/Participaci-n-07-Analisis-de-algoritmos--Codificaci-n-de-HUFFMAN/Gullivers_Travels.txt"
@@ -130,3 +132,9 @@ print("Archivo comprimido como:", nombre_archivo_comprimido)
 archivo_descomprimido = descomprimir_archivo(nombre_archivo_comprimido, arbol_huffman)
 
 print("Archivo descomprimido como:", archivo_descomprimido)
+
+fin = time.time() # Termina de medir el tiempo
+        
+tiempo = fin - inicio # Calcula el tiempo transcurrido
+
+print(f"Tiempo total: {tiempo} segundos")
