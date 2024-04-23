@@ -58,7 +58,7 @@ def crear_tabla_codigos(arbol_huffman, prefijo='', tabla_codigos={}):
 
 # Funcion para comprimir el archivo
 def comprimir_archivo(archivo, tabla_codigos):
-    nombre_archivo_comprimido = archivo + '.huffman' # Crea el nombre del archivo
+    nombre_archivo_comprimido = archivo + '.bin' # Crea el nombre del archivo
     
     with open(archivo, 'r', encoding='utf-8') as entrada, open(nombre_archivo_comprimido, 'wb') as salida:
         bit_acumulado = ''
@@ -82,7 +82,7 @@ def comprimir_archivo(archivo, tabla_codigos):
 
     return nombre_archivo_comprimido
 
-# Funcion para descomprimir el archivo con extension .huffman
+# Funcion para descomprimir el archivo con extension .bin
 def descomprimir_archivo(archivo_comprimido, arbol_huffman):
     nombre_archivo_descomprimido = "D:/Documentos/8vo/Analisis de Algoritmos/Actividades/practica7/Participaci-n-07-Analisis-de-algoritmos--Codificaci-n-de-HUFFMAN/descomprimido.txt"
 
