@@ -1,6 +1,7 @@
 import heapq
 import os
 import time
+import matplotlib.pyplot as plt
 
 # Clase para crear los nodos del arbol de huffman
 class NodoHuffman:
@@ -112,29 +113,63 @@ def descomprimir_archivo(archivo_comprimido, arbol_huffman):
 
     return nombre_archivo_descomprimido
 
-inicio = time.time() # Comienza a medir el tiempo
 
-# Archivo de entrada
-archivo = "D:/Documentos/8vo/Analisis de Algoritmos/Actividades/practica7/Participaci-n-07-Analisis-de-algoritmos--Codificaci-n-de-HUFFMAN/Gullivers_Travels.txt"
 
-# Cuenta los caracteres
-no_caracteres = contar_caracteres(archivo)
-# Crea el arbol de huffman con los caracteres repetidos contados
-arbol_huffman = crear_arbol_huffman(no_caracteres)
-# Generar tabla de códigos Huffman
-tabla_codigos = crear_tabla_codigos(arbol_huffman)
-# Comprimir el archivo
-nombre_archivo_comprimido = comprimir_archivo(archivo, tabla_codigos)
+listaTiemposEjecucion = [] #Lista para almacenar los tiempos en cada iteracion del while
+listaContador = []
+contador = 0
 
-print("Archivo comprimido como:", nombre_archivo_comprimido)
+while True:
+    # Valor 1 unidad
+    respuesta = input('\nDesea continuar?: ')
+    # Valor 1 unidad
+    if respuesta != 'si':
+        break
 
-# Descomprimir el archivo
-archivo_descomprimido = descomprimir_archivo(nombre_archivo_comprimido, arbol_huffman)
+    contador += 1
 
-print("Archivo descomprimido como:", archivo_descomprimido)
 
-fin = time.time() # Termina de medir el tiempo
-        
-tiempo = fin - inicio # Calcula el tiempo transcurrido
+    inicio = time.time() # Comienza a medir el tiempo
 
-print(f"Tiempo total: {tiempo} segundos")
+    # Archivo de entrada
+    archivo = "D:/Documentos/8vo/Analisis de Algoritmos/Actividades/practica7/Participaci-n-07-Analisis-de-algoritmos--Codificaci-n-de-HUFFMAN/Gullivers_Travels.txt"
+
+    # Cuenta los caracteres
+    no_caracteres = contar_caracteres(archivo)
+    # Crea el arbol de huffman con los caracteres repetidos contados
+    arbol_huffman = crear_arbol_huffman(no_caracteres)
+    # Generar tabla de códigos Huffman
+    tabla_codigos = crear_tabla_codigos(arbol_huffman)
+    # Comprimir el archivo
+    nombre_archivo_comprimido = comprimir_archivo(archivo, tabla_codigos)
+
+    print("Archivo comprimido como:", nombre_archivo_comprimido)
+
+    # Descomprimir el archivo
+    archivo_descomprimido = descomprimir_archivo(nombre_archivo_comprimido, arbol_huffman)
+
+    print("Archivo descomprimido como:", archivo_descomprimido)
+
+    fin = time.time() # Termina de medir el tiempo
+            
+    tiempo = fin - inicio # Calcula el tiempo transcurrido
+
+
+     #Inserta los valores a la lista
+    listaTiemposEjecucion.append(tiempo)
+    listaContador.append(contador)
+
+    print(f"Tiempo total: {tiempo} segundos")
+    print(f"/nVeces: {contador}")
+
+
+
+#CREA LA GRAFICA DE TIEMPOS
+y = listaTiemposEjecucion
+x = listaContador
+
+plt.plot(x, y, marker='o')
+plt.xlabel('Numero de ejecuciones')
+plt.ylabel('Tiempo')
+plt.grid(True)
+plt.show()
