@@ -1,3 +1,4 @@
+# Desarrollado por David Valadez Gutierrez
 import os
 
 def contar_caracteres(archivo):
@@ -29,7 +30,7 @@ def contar_caracteres(archivo):
     
         print(caracteres_ordenados)
 
-    nombre_archivo_resultados =  "C:/Users/usuario/Desktop/resultados.txt" # Generar archivos de resultados
+    nombre_archivo_resultados =  "D:/Documentos/8vo/Analisis de Algoritmos/Actividades/practica7/Participaci-n-07-Analisis-de-algoritmos--Codificaci-n-de-HUFFMAN/resultados.txt" # Generar archivos de resultados
 
     # Escribir los resultados en un archivo de texto
     with open(nombre_archivo_resultados, 'w', encoding='utf-8') as resultado_file:
@@ -38,6 +39,6 @@ def contar_caracteres(archivo):
         for caracter, frecuencia in caracteres_ordenados:
             resultado_file.write(f"{caracter}: {frecuencia}\n")
 
-archivo = "C:/Users/usuario/Desktop/Gullivers_Travels.txt"
+archivo = "D:/Documentos/8vo/Analisis de Algoritmos/Actividades/practica7/Participaci-n-07-Analisis-de-algoritmos--Codificaci-n-de-HUFFMAN/Gullivers_Travels.txt"
 
 contar_caracteres(archivo)
